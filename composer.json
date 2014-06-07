@@ -9,7 +9,8 @@
     "require": {
         "php": ">=5.3.3",
         "symfony/console": "2.6.*@dev",
-        "symfony/yaml": "2.5.*@dev"
+        "symfony/yaml": "2.5.*@dev",
+        "isometriks/linode-php": "dev-master"
     },
     "extra": {
     }
