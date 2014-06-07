@@ -1,0 +1,16 @@
+{
+    "name": "devophp/network",
+    "license": "MIT",
+    "type": "project",
+    "description": "Manage a network of nodes",
+    "autoload": {
+        "psr-0": { "": "src/" }
+    },
+    "require": {
+        "php": ">=5.3.3",
+        "symfony/console": "2.6.*@dev",
+        "symfony/yaml": "2.5.*@dev"
+    },
+    "extra": {
+    }
+}

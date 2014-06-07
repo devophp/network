@@ -1,0 +1,90 @@
+# Example file
+
+nodes:
+    - id: lamp-server-1
+      description: "My awesome lamp server nr 1"
+      interfaces:
+        - id: lamp-server-1-eth0
+          ip: 10.0.0.101
+          classes: ['private-ip']
+          
+        - id: lamp-server-1-lo
+          ip: 127.0.0.1
+          classes: ['local-ip']
+          
+        - id: lamp-server-1-eth1
+          ip: 192.168.123.1
+          classes: ['public-ip']
+
+      classes: ['web-server', 'mysql-server']
+      
+    - id: lamp-server-2
+      description: "My awesome lamp server nr 2"
+      interfaces:
+        - id: lamp-server-2-eth0
+          ip: 10.0.0.102
+          classes: ['private-ip']
+          
+        - id: lamp-server-2-lo
+          ip: 127.0.0.1
+          classes: ['local-ip']
+          
+        - id: lamp-server-2-eth1
+          ip: 192.168.123.2
+          classes: ['public-ip']
+          
+      classes: ['web-server', 'mysql-server']
+
+classes:
+    - id: web-server
+      description: apply these things to all of the webservers
+      
+      iprules:
+          - name: public http access
+            description: roflcopter
+            chain: INPUT
+            protocol: tcp
+            source: '0.0.0.0/0'
+            destination: ':80'
+            action: allow
+
+          - name: ssh from webservers public ips
+            description: roflcopter
+            chain: INPUT
+            protocol: tcp
+            source: 'node.web-server networkinterface.public-ip'
+            destination: ':22'
+            action: allow
+
+
+          - name: ssh from webservers private ips
+            description: roflcopter2
+            chain: INPUT
+            protocol: tcp
+            source: 'node.web-server networkinterface.private-ip'
+            destination: ':22'
+            action: allow
+            
+          - name: everything outbound
+            chain: OUTPUT
+            protocol: all
+            source: '0.0.0.0/0'
+            destination: ':0-65535'
+            action: allow
+            
+          - name: block some ip
+            chain: INPUT
+            source: 1.2.3.4
+            action: drop
+            
+    - id: mysql-server
+      description: apply these things to all of the mysql
+      iprules:
+          - name: public mysql access
+            description: roflcopter
+            chain: INPUT
+            _protocol: tcp
+            source: 'node.web-server networkinterface.public-ip'
+            destination: ':3306'
+            action: allow
+      
