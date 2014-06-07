@@ -28,6 +28,11 @@ Please refer to the `example/` directory for example network configurations.
 
 This project is in early-stage development
 
+
+## Installation
+
+This project uses [composer](http://getcomposer.org) to manage it's dependencies. Simply run `composer install` to install all dependencies in the `vendor/` directory.
+
 ## Commands:
 
 You can find the command-line utility in `bin/console`
