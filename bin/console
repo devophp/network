@@ -1,0 +1,15 @@
+#!/usr/bin/env php
+<?php
+
+// app/console
+
+use Symfony\Component\Console\Application;
+
+require_once(__DIR__ . "/../vendor/autoload.php");
+$application = new Application('Distributed iptables console Tool', '1.0.0');
+$application->setCatchExceptions(false);
+$application->add(new \Devophp\Component\Network\Command\ParseCommand());
+$application->add(new \Devophp\Component\Network\Command\IpRulesCommand());
+$application->add(new \Devophp\Component\Linode\Command\InfoCommand());
+$application->add(new \Devophp\Component\Linode\Command\GetNodesCommand());
+$application->run();
